@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BRSA – Bloque Republicano Soberanista Andaluz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --v1: #145C2F;   /* verde oscuro principal */
+      --v2: #1B7A3E;   /* verde medio */
+      --v3: #EBF5EE;   /* verde clarísimo fondos */
+      --am: #D4920A;   /* amarillo dorado andaluz */
+      --am2:#F5AB1A;   /* amarillo más vivo */
+      --bl: #FFFFFF;
+      --gr: #F6F6F4;   /* gris fondos */
+      --t1: #111111;   /* texto oscuro */
+      --t2: #4A4A4A;   /* texto medio */
+      --bd: #BDD4C5;   /* borde */
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Outfit', sans-serif; background: var(--bl); color: var(--t1); overflow-x: hidden; }
+
+    /* ════════════════════ NAV ════════════════════ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+      background: var(--v1);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem; height: 64px;
+      box-shadow: 0 2px 20px rgba(0,0,0,.25);
+    }
+    .nav-brand { display: flex; align-items: center; gap: .9rem; text-decoration: none; }
+    .nav-brand img { height: 40px; width: auto; object-fit: contain; }
+    .nav-brand-txt { display: flex; flex-direction: column; line-height: 1.1; }
+    .nav-brand-txt b { font-size: 1.2rem; font-weight: 800; color: var(--bl); letter-spacing: .14em; }
+    .nav-brand-txt small { font-size: .58rem; font-weight: 400; color: rgba(255,255,255,.5); letter-spacing: .09em; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: .85rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: rgba(255,255,255,.78); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: var(--am2); }
+
+    /* ════════════════════ HERO ════════════════════ */
+    #hero {
+      min-height: 100vh; padding-top: 64px;
+      display: grid; grid-template-columns: 58% 42%;
+      align-items: center;
+      background: var(--v1);
+      position: relative; overflow: hidden;
+    }
+    /* Textura geométrica sutil */
+    #hero::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background-image: repeating-linear-gradient(
+        60deg,
+        rgba(255,255,255,.018) 0, rgba(255,255,255,.018) 1px,
+        transparent 0, transparent 50%
+      );
+      background-size: 44px 44px;
+    }
+    /* Franja amarilla izquierda */
+    #hero::after {
+      content: ''; position: absolute; left: 0; top: 64px; bottom: 0;
+      width: 5px; background: var(--am);
+    }
+    .hero-txt { padding: 6rem 3rem 6rem 5.5rem; position: relative; z-index: 2; }
+    .hero-pre {
+      font-size: .7rem; font-weight: 700; letter-spacing: .3em; text-transform: uppercase;
+      color: rgba(255,255,255,.45); margin-bottom: 1.8rem;
+      display: flex; align-items: center; gap: .7rem;
+    }
+    .hero-pre::before { content: ''; width: 28px; height: 1px; background: var(--am); }
+    .hero-pre span { color: var(--am2); }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.6rem); font-weight: 900; line-height: 1.06;
+      color: var(--bl); margin-bottom: 1.6rem;
+    }
+    h1 em { font-style: italic; color: var(--am2); }
+    .eslogan {
+      display: inline-block;
+      font-size: 1.1rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--bl);
+      border-left: 4px solid var(--am);
+      padding: .3rem 0 .3rem 1rem;
+      margin-bottom: 2rem; opacity: .9;
+    }
+    .hero-desc {
+      font-size: .98rem; font-weight: 300; line-height: 1.95;
+      color: rgba(255,255,255,.62); max-width: 460px; margin-bottom: 2.8rem;
+    }
+    .cta {
+      display: inline-flex; align-items: center; gap: .7rem;
+      background: var(--am); color: var(--v1);
+      font-size: .88rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+      text-decoration: none; padding: 1rem 2.6rem;
+      transition: background .2s, transform .15s;
+    }
+    .cta:hover { background: var(--am2); transform: translateY(-2px); }
+
+    .hero-right {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 2.5rem; padding: 3rem 3rem 3rem 1rem;
+      position: relative; z-index: 2;
+    }
+    .hero-logo {
+      width: min(320px, 85%);
+      filter: drop-shadow(0 8px 36px rgba(0,0,0,.3));
+      animation: flotar 7s ease-in-out infinite;
+    }
+    .hero-escudo {
+      width: min(160px, 42%);
+      filter: drop-shadow(0 4px 18px rgba(0,0,0,.25));
+      animation: flotar 7s ease-in-out infinite;
+      animation-delay: .8s;
+      opacity: .88;
+    }
+    @keyframes flotar {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-13px); }
+    }
+
+    /* Franja inferior hero */
+    .hero-stripe { height: 6px; display: flex; }
+    .hero-stripe span { flex: 1; }
+
+    /* ════════════════════ SECCIÓN GENÉRICA ════════════════════ */
+    section { padding: 6rem 0; }
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 2rem; }
+
+    .label {
+      font-size: .7rem; font-weight: 700; letter-spacing: .28em; text-transform: uppercase;
+      color: var(--v2); display: flex; align-items: center; gap: .6rem; margin-bottom: .7rem;
+    }
+    .label::before { content: ''; width: 20px; height: 2px; background: var(--am); }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 3.5vw, 2.9rem); font-weight: 900; line-height: 1.1;
+      margin-bottom: 1.3rem;
+    }
+    .lead { font-size: .98rem; font-weight: 300; line-height: 1.9; color: var(--t2); max-width: 640px; }
+
+    /* ════════════════════ PRESENTACIÓN ════════════════════ */
+    #presentacion { background: var(--bl); }
+    .pres-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .cita {
+      margin-top: 2.5rem; padding: 1.4rem 1.8rem;
+      border-left: 5px solid var(--am);
+      background: var(--v3);
+    }
+    .cita p { font-size: .93rem; font-weight: 300; font-style: italic; line-height: 1.85; color: var(--t2); }
+    .cita cite { display: block; margin-top: .7rem; font-size: .8rem; font-weight: 700; color: var(--v1); font-style: normal; letter-spacing: .04em; }
+
+    .valores { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; margin-top: 2rem; }
+    .val {
+      padding: 1.1rem 1.2rem; background: var(--gr); border: 1px solid var(--bd);
+      display: flex; gap: .85rem; align-items: flex-start;
+      transition: background .2s, border-color .2s;
+    }
+    .val:hover { background: var(--v3); border-color: var(--v2); }
+    .val-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+    .val strong { display: block; font-size: .88rem; font-weight: 700; margin-bottom: .25rem; color: var(--t1); }
+    .val span { font-size: .78rem; font-weight: 300; color: var(--t2); line-height: 1.6; }
+
+    /* ════════════════════ PROPUESTAS ════════════════════ */
+    #propuestas { background: var(--v1); }
+    #propuestas .label { color: rgba(255,255,255,.55); }
+    #propuestas .label::before { background: var(--am); }
+    #propuestas h2 { color: var(--bl); }
+    #propuestas .lead { color: rgba(255,255,255,.58); }
+
+    .tab-nav {
+      display: flex; flex-wrap: wrap; gap: .5rem;
+      margin: 2.5rem 0 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,.12); padding-bottom: 1rem;
+    }
+    .tbtn {
+      font-size: .78rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+      padding: .5rem 1.3rem; cursor: pointer;
+      border: 2px solid rgba(255,255,255,.18); background: transparent;
+      color: rgba(255,255,255,.55); transition: all .2s;
+    }
+    .tbtn:hover { background: rgba(255,255,255,.08); color: var(--bl); border-color: rgba(255,255,255,.35); }
+    .tbtn.on { background: var(--am); color: var(--v1); border-color: var(--am); }
+
+    .tpanel { display: none; }
+    .tpanel.on {
+      display: grid; grid-template-columns: 1fr 1.7fr; gap: 3rem; align-items: start;
+      animation: fadeUp .35s ease;
+    }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+
+    .timg {
+      width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block;
+      border: 3px solid rgba(255,255,255,.1);
+    }
+    .tcontent h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.65rem; font-weight: 700; color: var(--am2); margin-bottom: 1rem;
+    }
+    .tcontent p { font-size: .92rem; font-weight: 300; line-height: 1.9; color: rgba(255,255,255,.7); margin-bottom: .9rem; }
+    .pills { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.2rem; }
+    .pill {
+      font-size: .73rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+      padding: .3rem .9rem; border: 1px solid rgba(255,255,255,.22);
+      color: rgba(255,255,255,.72);
+    }
+
+    /* ════════════════════ PROGRAMA PIF ════════════════════ */
+    #programa { background: var(--gr); }
+    .pif { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; margin-top: 3rem; background: var(--bd); }
+    .pcard {
+      background: var(--bl); padding: 1.8rem 1.8rem 1.8rem 2.2rem;
+      position: relative; overflow: hidden; transition: background .2s;
+    }
+    .pcard:hover { background: var(--v3); }
+    .pcard::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; }
+    .pcard.v::before { background: var(--v1); }
+    .pcard.a::before { background: var(--am); }
+    .pcard.a2::before { background: var(--am2); }
+    .pn { font-size: 3rem; font-weight: 800; opacity: .05; position: absolute; right: 1rem; top: .5rem; line-height: 1; }
+    .pcard h4 { font-size: .85rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: var(--v1); margin-bottom: .55rem; }
+    .pcard p { font-size: .81rem; font-weight: 300; line-height: 1.7; color: var(--t2); }
+
+    /* ════════════════════ ESCUDO ════════════════════ */
+    #escudo-sec {
+      background: var(--v2);
+      padding: 5rem 0; text-align: center; position: relative; overflow: hidden;
+    }
+    #escudo-sec::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(255,255,255,.07) 0%, transparent 65%);
+    }
+    .escudo-wrap { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+    .escudo-wrap img {
+      width: min(240px, 52%);
+      filter: drop-shadow(0 8px 32px rgba(0,0,0,.28));
+    }
+    .escudo-frase {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1.35rem; line-height: 1.65;
+      color: rgba(255,255,255,.65); max-width: 500px;
+    }
+    .escudo-frase em { color: var(--am2); font-style: normal; font-weight: 700; }
+
+    /* ════════════════════ EQUIPO ════════════════════ */
+    #equipo { background: var(--bl); }
+    .eq-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; margin-top: 3rem; }
+    .miembro {
+      text-align: center; padding: 2.5rem 1.5rem;
+      border: 1px solid var(--bd); background: var(--gr);
+      position: relative; overflow: hidden;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .miembro:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(20,92,47,.12); }
+    .miembro::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: var(--am); }
+    .inicial {
+      width: 74px; height: 74px; border-radius: 50%;
+      background: var(--v1); color: var(--bl);
+      font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.2rem; border: 3px solid var(--bd);
+    }
+    .mnombre { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; margin-bottom: .3rem; }
+    .mcargo { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--v2); margin-bottom: 1rem; }
+    .mroles { display: flex; flex-direction: column; gap: .3rem; }
+    .mroles span { font-size: .76rem; font-weight: 300; color: var(--t2); background: var(--bl); padding: .22rem .6rem; border: 1px solid var(--bd); }
+
+    /* ════════════════════ FOOTER ════════════════════ */
+    footer { background: var(--v1); padding: 3.5rem 0 2rem; }
+    .ft-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 2rem; }
+    .ft-brand { display: flex; align-items: center; gap: 1rem; }
+    .ft-brand img { height: 48px; width: auto; }
+    .ft-brand b { display: block; font-size: 1.1rem; font-weight: 800; color: var(--bl); letter-spacing: .12em; }
+    .ft-brand small { font-size: .68rem; color: rgba(255,255,255,.38); }
+    .ft-frase { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; color: rgba(255,255,255,.45); }
+    .ft-copy { width: 100%; text-align: center; margin-top: 2rem; padding-top: 1.5rem; font-size: .72rem; color: rgba(255,255,255,.2); border-top: 1px solid rgba(255,255,255,.08); }
+
+    /* ════════════════════ REVEAL ════════════════════ */
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* ════════════════════ RESPONSIVE ════════════════════ */
+    @media (max-width: 960px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-txt { padding: 4rem 2rem 2rem; }
+      .hero-right { flex-direction: row; flex-wrap: wrap; padding: 2rem; justify-content: center; }
+      .pres-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .eq-grid { grid-template-columns: 1fr; max-width: 360px; margin-inline: auto; }
+      .pif { grid-template-columns: 1fr 1fr; }
+      .tpanel.on { grid-template-columns: 1fr; }
+      .valores { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 0 1.2rem; }
+      .nav-links { gap: 1rem; }
+      .nav-brand-txt small { display: none; }
+      .pif { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-brand">
+    <img src="logo_brsa.png" alt="Logo BRSA"/>
+    <div class="nav-brand-txt">
+      <b>BRSA</b>
+      <small>Bloque Republicano Soberanista Andaluz</small>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#presentacion">Nosotros</a></li>
+    <li><a href="#propuestas">Propuestas</a></li>
+    <li><a href="#programa">Programa</a></li>
+    <li><a href="#equipo">Equipo</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-txt">
+    <div class="hero-pre">Bloque Republicano Soberanista Andaluz &nbsp;·&nbsp; <span>Andalucía</span></div>
+    <h1>Política para<br><em>la gente</em><br>que trabaja.</h1>
+    <p class="eslogan">Hazlo por Andalucía. Hazlo por ti.</p>
+    <p class="hero-desc">Un proyecto nacido desde abajo, con los pies en Andalucía y la mirada puesta en un futuro más justo, más libre y más nuestro. Porque el poder debe estar al servicio del pueblo, no al revés.</p>
+    <a href="#presentacion" class="cta">
+      Conócenos
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+    </a>
+  </div>
+  <div class="hero-right">
+    <img src="logo_brsa.png" alt="Logo BRSA" class="hero-logo"/>
+    <img src="escudo_sin_fondo.png" alt="Escudo Andalucía BRSA" class="hero-escudo"/>
+  </div>
+</section>
+
+<div class="hero-stripe">
+  <span style="background:var(--v1)"></span>
+  <span style="background:var(--am)"></span>
+  <span style="background:var(--v2)"></span>
+  <span style="background:var(--am2)"></span>
+  <span style="background:var(--v1)"></span>
+</div>
+
+<!-- PRESENTACIÓN -->
+<section id="presentacion">
+  <div class="container">
+    <div class="pres-grid">
+      <div class="reveal">
+        <div class="label">Quiénes somos</div>
+        <h2>Un partido de convicciones,<br>no de cálculos.</h2>
+        <p class="lead">El BRSA nace de una pregunta sencilla y urgente: ¿por qué Andalucía, con todo su talento y su fuerza, sigue siendo la tierra del potencial no realizado? Nuestra brújula no apunta hacia una bandera — apunta hacia la gente que trabaja, que paga el alquiler con dificultad, que ve cómo sus hijos se marchan porque aquí no encuentran futuro.</p>
+        <div class="cita">
+          <p>Hemos aprendido a imaginar, a esforzarnos aunque el fruto no vaya a acabar siendo público por ahora. Queremos dar las gracias a todo aquel que piense que nos habría votado, o que querría militar junto con nosotros.</p>
+          <cite>— Uriel Lleonart Molina, Presidente y portavoz del BRSA</cite>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="valores">
+          <div class="val">
+            <div class="val-dot" style="background:var(--am)"></div>
+            <div><strong>República</strong><span>La jefatura del Estado no debe ser hereditaria en una democracia plena del siglo XXI.</span></div>
+          </div>
+          <div class="val">
+            <div class="val-dot" style="background:var(--v1)"></div>
+            <div><strong>Autogobierno</strong><span>Más competencias y financiación justa, siempre al servicio de mejoras concretas para los andaluces.</span></div>
+          </div>
+          <div class="val">
+            <div class="val-dot" style="background:var(--am2)"></div>
+            <div><strong>Justicia social</strong><span>Fiscalidad progresiva, vivienda digna y servicios públicos garantizados para todos.</span></div>
+          </div>
+          <div class="val">
+            <div class="val-dot" style="background:var(--v2)"></div>
+            <div><strong>Democracia directa</strong><span>El pueblo decide. Transparencia total y tolerancia cero con la corrupción.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROPUESTAS -->
+<section id="propuestas">
+  <div class="container">
+    <div class="label reveal">Nuestras propuestas</div>
+    <h2 class="reveal" style="color:var(--bl)">Lo que defendemos,<br>sin rodeos.</h2>
+    <p class="lead reveal">Propuestas concretas, respaldadas por datos, pensadas para transformar la vida real de los andaluces.</p>
+
+    <div class="tab-nav reveal">
+      <button class="tbtn on" onclick="tab('vivienda',this)">Vivienda</button>
+      <button class="tbtn" onclick="tab('fiscal',this)">Fiscalidad</button>
+      <button class="tbtn" onclick="tab('trabajo',this)">Trabajo</button>
+      <button class="tbtn" onclick="tab('democracia',this)">Democracia</button>
+      <button class="tbtn" onclick="tab('inmigracion',this)">Inmigración</button>
+      <button class="tbtn" onclick="tab('educacion',this)">Educación</button>
+    </div>
+
+    <!-- VIVIENDA -->
+    <div id="t-vivienda" class="tpanel on">
+      <img class="timg"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Casares_01.jpg/960px-Casares_01.jpg"
+        alt="Casares, pueblo blanco de Málaga"
+        onerror="this.style.display='none'"/>
+      <div class="tcontent">
+        <h3>La vivienda es un derecho, no un activo financiero.</h3>
+        <p>La mercantilización del acceso al hogar ha generado en España una de las crisis habitacionales más graves de su historia reciente. Familias expulsadas de sus barrios por grandes tenedores y fondos de inversión que operan sin restricción alguna.</p>
+        <p>El BRSA legislará para limitar el número de propiedades que cualquier gran tenedor puede acumular, frenará la especulación extranjera y se compromete a un objetivo innegociable: cero desahucios sin alternativa habitacional garantizada.</p>
+        <div class="pills">
+          <span class="pill">Límite a grandes tenedores</span>
+          <span class="pill">Freno a fondos especulativos</span>
+          <span class="pill">0 desahucios sin alternativa</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FISCAL -->
+    <div id="t-fiscal" class="tpanel">
+      <img class="timg"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Congreso_de_los_Diputados_%28Madrid%29_01.jpg/960px-Congreso_de_los_Diputados_%28Madrid%29_01.jpg"
+        alt="Congreso de los Diputados, Madrid"
+        onerror="this.style.display='none'"/>
+      <div class="tcontent">
+        <h3>Andalucía pide lo que le corresponde, no privilegios.</h3>
+        <p>Con más de ocho millones de habitantes, Andalucía recibe una financiación per cápita que no refleja ni su población ni sus necesidades reales. Un niño nacido en Jaén tiene exactamente los mismos derechos que uno nacido en Madrid o Barcelona.</p>
+        <p>Exigiremos una reforma integral del sistema de financiación autonómica y una fiscalidad más progresiva que grave en mayor medida las grandes fortunas y persiga con rigor la evasión fiscal.</p>
+        <div class="pills">
+          <span class="pill">Reforma financiación autonómica</span>
+          <span class="pill">Fiscalidad progresiva</span>
+          <span class="pill">Persecución de la evasión fiscal</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRABAJO -->
+    <div id="t-trabajo" class="tpanel">
+      <img class="timg"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/A_small_cup_of_coffee.JPG/960px-A_small_cup_of_coffee.JPG"
+        alt="Trabajadores"
+        onerror="this.style.display='none'"
+        style="display:none"/>
+      <img class="timg"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Vejer_de_la_Frontera_-_panoramio_%281%29.jpg/960px-Vejer_de_la_Frontera_-_panoramio_%281%29.jpg"
+        alt="Vejer de la Frontera, Cádiz – paisaje de trabajo y tradición andaluza"
+        onerror="this.style.display='none'"/>
+      <div class="tcontent">
+        <h3>El trabajo debe ser dignidad, no resignación.</h3>
+        <p>España forma profesionales de altísimo nivel y luego los ve marchar a Centroeuropa porque no les ofrecemos las condiciones que merecen. Esa sangría de talento es un fracaso colectivo que no podemos seguir ignorando.</p>
+        <p>Impulsaremos la semana laboral de cuatro días. Un trabajador descansado y motivado rinde más y mejor. Además, exigiremos las condiciones para que el talento andaluz se quede — y el que se fue, vuelva.</p>
+        <div class="pills">
+          <span class="pill">Semana de 4 días</span>
+          <span class="pill">Retención del talento</span>
+          <span class="pill">Salarios acordes a la formación</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEMOCRACIA -->
+    <div id="t-democracia" class="tpanel">
+      <img class="timg"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Parlamento_de_Andalucia.jpg/960px-Parlamento_de_Andalucia.jpg"
+        alt="Parlamento de Andalucía, Sevilla"
+        onerror="this.style.display='none'"/>
+      <div class="tcontent">
+        <h3>Transparencia total. Corrupción, cero.</h3>
+        <p>La crisis de legitimidad de las instituciones no es coyuntural: es el resultado de décadas de tolerancia hacia la corrupción y el clientelismo. El BRSA nace de la convicción de que la política puede ser diferente — y lo demostrará con hechos.</p>
+        <p>Todo representante del BRSA declarará públicamente su patrimonio. Las finanzas del partido serán públicas y auditadas de forma independiente. Y defenderemos un referéndum sobre la forma de Estado: que sea la ciudadanía quien decida.</p>
+        <div class="pills">
+          <span class="pill">Declaración pública de patrimonio</span>
+          <span class="pill">Finanzas auditadas</span>
+          <span class="pill">Referéndum sobre la monarquía</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- INMIGRACIÓN -->
+    <div id="t-inmigracion" class="tpanel">
+      <img class="timg"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Migrants_strike_at_the_border_of_Hungary_and_Austria.jpg/960px-Migrants_strike_at_the_border_of_Hungary_and_Austria.jpg"
+        alt="Personas migrantes en Europa"
+        onerror="this.style.display='none'"/>
+      <div class="tcontent">
+        <h3>Humanidad ante la urgencia. Orden en la integración.</h3>
+        <p>Ante cualquier situación de necesidad urgente, la respuesta del Estado debe ser inmediata, incondicional y humana. No puede haber debate ideológico que justifique mirar hacia otro lado ante el sufrimiento humano.</p>
+        <p>La población inmigrante representa aproximadamente el 11% de la actividad económica española. Son trabajadores, contribuyentes y vecinos. Tratarlos como una amenaza no solo es moralmente inaceptable: es económicamente irracional.</p>
+        <div class="pills">
+          <span class="pill">Atención humanitaria garantizada</span>
+          <span class="pill">Regularización ordenada y justa</span>
+          <span class="pill">Fin de la explotación laboral agrícola</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDUCACIÓN -->
+    <div id="t-educacion" class="tpanel">
+      <img class="timg"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/UGR-Fachada_Hospital_Real.jpg/960px-UGR-Fachada_Hospital_Real.jpg"
+        alt="Universidad de Granada – Hospital Real"
+        onerror="this.style.display='none'"/>
+      <div class="tcontent">
+        <h3>La educación no puede seguir siendo una inversión cuyos frutos recogen otros.</h3>
+        <p>Andalucía exporta generaciones enteras de jóvenes porque el modelo productivo local no ha crecido al mismo ritmo que el talento que genera. La educación pública, universal y de calidad es el pilar irrenunciable del Estado social.</p>
+        <p>Exigiremos inversión sostenida con especial atención al interior andaluz. La formación profesional recibirá el mismo reconocimiento que la universidad. Cualquier recorte en educación pública será una línea roja para el BRSA.</p>
+        <div class="pills">
+          <span class="pill">Educación pública de calidad</span>
+          <span class="pill">FP al nivel de la universidad</span>
+          <span class="pill">Pensamiento crítico como base</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMA PIF -->
+<section id="programa">
+  <div class="container">
+    <div class="label reveal">Programa Ideológico Fundacional</div>
+    <h2 class="reveal">El PIF: nuestro<br>compromiso escrito.</h2>
+    <p class="lead reveal">El Programa Ideológico Fundacional define quiénes somos, qué defendemos y cómo lo haremos. Aquí, sus pilares.</p>
+    <div class="pif reveal">
+      <div class="pcard v"><div class="pn">1</div><h4>Posición territorial</h4><p>Andalucía dentro de España, exigiendo autogobierno real, financiación justa y capacidad de decisión sobre su propio modelo de desarrollo.</p></div>
+      <div class="pcard a"><div class="pn">2</div><h4>Vivienda</h4><p>La vivienda es un derecho fundamental. Cero desahucios sin alternativa habitacional. Límite a grandes tenedores y fondos especulativos.</p></div>
+      <div class="pcard a2"><div class="pn">3</div><h4>Fiscalidad justa</h4><p>Reforma del sistema de financiación autonómica. Fiscalidad progresiva. Persecución rigurosa de la evasión fiscal.</p></div>
+      <div class="pcard v"><div class="pn">4</div><h4>Regeneración democrática</h4><p>Tolerancia cero con la corrupción. Patrimonio público. Referéndum sobre la forma de Estado. Democracia directa.</p></div>
+      <div class="pcard a"><div class="pn">5</div><h4>Trabajo y economía</h4><p>Semana laboral de cuatro días. Retención del talento andaluz. Transformación hacia sectores de mayor valor añadido.</p></div>
+      <div class="pcard a2"><div class="pn">6</div><h4>Inmigración</h4><p>Humanidad incondicional ante la urgencia. Integración ordenada y transparente. Fin de la explotación laboral agrícola.</p></div>
+      <div class="pcard v"><div class="pn">7</div><h4>Educación</h4><p>Educación pública, universal y de calidad. Inversión estructural en el interior andaluz. Pensamiento crítico como eje metodológico.</p></div>
+      <div class="pcard a"><div class="pn">8</div><h4>Andalucía que lidera</h4><p>Energías renovables, agroalimentaria avanzada, economía del conocimiento. No el sur que hay que ayudar: el sur que lidera.</p></div>
+      <div class="pcard a2"><div class="pn">9</div><h4>Estrategia parlamentaria</h4><p>No la mayoría, sino la llave. Influencia quirúrgica en investiduras, presupuestos y votaciones de calado.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ESCUDO ORNAMENTAL -->
+<section id="escudo-sec">
+  <div class="escudo-wrap">
+    <img src="escudo_sin_fondo.png" alt="Escudo de Andalucía reinventado"/>
+    <p class="escudo-frase">
+      "No aceptamos que Andalucía sea perpetuamente<br>el sur que hay que ayudar.<br>
+      Queremos que sea <em>el sur que lidera.</em>"
+    </p>
+  </div>
+</section>
+
+<!-- EQUIPO -->
+<section id="equipo">
+  <div class="container">
+    <div class="label reveal">Las personas detrás</div>
+    <h2 class="reveal">El equipo fundador del BRSA.</h2>
+    <p class="lead reveal">Tres personas con una convicción compartida: que la política puede hacerse de otra manera, y que Andalucía se lo merece.</p>
+    <div class="eq-grid">
+      <div class="miembro reveal">
+        <div class="inicial">U</div>
+        <div class="mnombre">Uriel Lleonart Molina</div>
+        <div class="mcargo">Secretario General · Presidente</div>
+        <div class="mroles"><span>Portavoz en el Congreso</span><span>Presidente y fundador</span></div>
+      </div>
+      <div class="miembro reveal">
+        <div class="inicial">A</div>
+        <div class="mnombre">Adrián Butrón Gómez</div>
+        <div class="mcargo">Vicepresidente</div>
+        <div class="mroles"><span>Organizador de militancia y sedes</span><span>Encargado de coaliciones</span></div>
+      </div>
+      <div class="miembro reveal">
+        <div class="inicial">L</div>
+        <div class="mnombre">Luis Peláez Hervás</div>
+        <div class="mcargo">Consejero de la Presidencia</div>
+        <div class="mroles"><span>Comunicación y RRSS</span><span>Finanzas</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="ft-inner">
+      <div class="ft-brand">
+        <img src="logo_brsa.png" alt="Logo BRSA"/>
+        <div><b>BRSA</b><small>Bloque Republicano Soberanista Andaluz</small></div>
+      </div>
+      <div class="ft-frase">"Hazlo por Andalucía. Hazlo por ti."</div>
+    </div>
+    <div class="ft-copy">© 2025 Bloque Republicano Soberanista Andaluz · Todos los derechos reservados</div>
+  </div>
+</footer>
+
+<script>
+  function tab(id, btn) {
+    document.querySelectorAll('.tpanel').forEach(p => p.classList.remove('on'));
+    document.querySelectorAll('.tbtn').forEach(b => b.classList.remove('on'));
+    document.getElementById('t-' + id).classList.add('on');
+    btn.classList.add('on');
+  }
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
